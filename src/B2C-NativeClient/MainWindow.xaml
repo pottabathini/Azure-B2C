@@ -1,0 +1,235 @@
+﻿<Window x:Class="B2C_NativeClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  
+        xmlns:wpf="clr-namespace:TheArtOfDev.HtmlRenderer.WPF;assembly=HtmlRenderer.WPF"
+        xmlns:local="clr-namespace:B2C_NativeClient"
+        mc:Ignorable="d"
+        Title="Feed Bucket" Height="720" Width="1080">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="0,0,0,5" VerticalAlignment="Top" Background="#00B294">
+            <DockPanel HorizontalAlignment="Stretch">
+                <Image Source="logo.jpg" Height="25" Margin="3" />
+                <Label HorizontalAlignment="Left" Content="" x:Name="UsernameLabel" Foreground="White"></Label>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Content="Sign Up" Margin="10,0,0,0" Click="SignUp" x:Name="SignUpButton" Width="50" Height="30" Style="{StaticResource HyperlinkLikeButton}"/>
+                    <Button Content="Sign In" Margin="10,0,0,0" Click="SignIn" x:Name="SignInButton" Width="50" Height="30" Style="{StaticResource HyperlinkLikeButton}"/>
+                    <Button Content="Sign In And Sign Up" Margin="10,0,0,0" Click="SignInAndSignUp" x:Name="SignInAndSignUpButton" Width="120" Height="30" Style="{StaticResource HyperlinkLikeButton}"/>
+                    <Button Content="Edit Profile" Margin="10,0,0,0" Click="EditProfile" x:Name="EditProfileButton" Width="80" Height="30" Style="{StaticResource HyperlinkLikeButton}"/>
+                    <Button Content="Reset Password" Margin="10,0,10,0" Click="RestPassword" x:Name="ResetPasswordButton" Width="80" Height="30" Style="{StaticResource HyperlinkLikeButton}" />
+                    <Button Content="Sign Out" Margin="10,0,10,0" Click="SignOut" x:Name="SignOutButton" Width="80" Height="30" Style="{StaticResource HyperlinkLikeButton}"/>
+                </StackPanel>
+            </DockPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Margin="5">
+            <DockPanel HorizontalAlignment="Stretch" x:Name="UserPreferencesPanel">
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <ComboBox HorizontalAlignment="Right" Margin="10,0,0,0" VerticalAlignment="Top" Width="150" x:Name="TabsComboBox" Height="30"/>
+                    <Button HorizontalAlignment="Right" Content="Update User Preference" Margin="10,0,0,0" Click="UpdateUserPreference" x:Name="UpdateUserPreferenceButton" Width="150" Height="30" Background="GhostWhite">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </StackPanel>
+        <TabControl Grid.Row="2" x:Name="FeedTabs" Margin="10" BorderBrush="Gainsboro">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="#949499" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="Claims" Width="100">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <ListView Margin="10" x:Name="ClaimsListView">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Claim Type" Width="120" DisplayMemberBinding="{Binding Key}" />
+                                <GridViewColumn Header="Claim Value" Width="500" DisplayMemberBinding="{Binding Value}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <TextBox Grid.Row="1" x:Name="UserIdTextBox"></TextBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Sports" Width="110">
+                <ListView Margin="10" x:Name="SportFeedsListView" ItemContainerStyle="{DynamicResource CustomListViewItemStyle}" AlternationCount="2">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="40"/>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Row="0" Source="{Binding ImageLink}" HorizontalAlignment="Left"/>
+                                <Label Grid.Row="1" Content="{Binding Subject}" FontSize="15"/>
+                                <wpf:HtmlPanel Grid.Row="2" Text="{Binding Summary}" Width="950"/>
+                                <Label Grid.Row="3" Content="{Binding PublishedDate}" FontStyle="Italic" ContentStringFormat="dd/MM/yyyy"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Movies" Width="110">
+                <ListView Margin="10" x:Name="MovieFeedsListView" ItemContainerStyle="{DynamicResource CustomListViewItemStyle}" AlternationCount="2">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="40"/>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Row="0" Source="{Binding ImageLink}" HorizontalAlignment="Left" />
+                                <Label Grid.Row="1" Content="{Binding Subject}" FontSize="15"/>
+                                <wpf:HtmlPanel Grid.Row="2" Text="{Binding Summary}" Width="950"/>
+                                <Label Grid.Row="3" Content="{Binding PublishedDate}" FontStyle="Italic" ContentStringFormat="dd/MM/yyyy"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Top News" Width="110">
+                <ListView Margin="10" x:Name="TopNewsListView" ItemContainerStyle="{DynamicResource CustomListViewItemStyle}" AlternationCount="2">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="40"/>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Row="0" Source="{Binding ImageLink}" HorizontalAlignment="Left" />
+                                <Label Grid.Row="1" Content="{Binding Subject}" FontSize="15"/>
+                                <wpf:HtmlPanel Grid.Row="2" Text="{Binding Summary}" Width="950"/>
+                                <Label Grid.Row="3" Content="{Binding PublishedDate}" FontStyle="Italic" ContentStringFormat="dd/MM/yyyy"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Tech News" Width="110">
+                <ListView Margin="10" x:Name="TechnologyNewsListView" ItemContainerStyle="{DynamicResource CustomListViewItemStyle}" AlternationCount="2">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="40"/>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Row="0" Source="{Binding ImageLink}" HorizontalAlignment="Left" />
+                                <Label Grid.Row="1" Content="{Binding Subject}" FontSize="15"/>
+                                <wpf:HtmlPanel Grid.Row="2" Text="{Binding Summary}" Width="950" />
+                                <Label Grid.Row="3" Content="{Binding PublishedDate}" FontStyle="Italic" ContentStringFormat="dd/MM/yyyy"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Business News" Width="110">
+                <ListView Margin="10" x:Name="BusinessNewsListView" ItemContainerStyle="{DynamicResource CustomListViewItemStyle}" AlternationCount="2">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="40"/>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Row="0" Source="{Binding ImageLink}"  HorizontalAlignment="Left"/>
+                                <Label Grid.Row="1" Content="{Binding Subject}" FontSize="15"/>
+                                <wpf:HtmlPanel Grid.Row="2" Text="{Binding Summary}" Width="950"/>
+                                <Label Grid.Row="3" Content="{Binding PublishedDate}" FontStyle="Italic" ContentStringFormat="dd/MM/yyyy"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Create User" x:Name="CreateUserTabItem" Width="110">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0">Email:</Label>
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="0,0,0,10" x:Name="CreateUserEmailTextBox"/>
+
+                    <Label Grid.Row="1">Display Name:</Label>
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="0,0,0,10" x:Name="CreateUserDisplayName" />
+
+                    <Label Grid.Row="2">Nick Name:</Label>
+                    <TextBox Grid.Row="2" Grid.Column="1" Margin="0,0,0,10" x:Name="CreateUserNickName" />
+
+                    <Label Grid.Row="3">Password:</Label>
+                    <TextBox Grid.Row="3" Grid.Column="1" Margin="0,0,0,10" x:Name="CreateUserPassword" Text="P@ssword!" />
+
+                    <Button Grid.Row="4" Grid.ColumnSpan="2" Click="CreateUser" Height="30" Width="150" Content="Create User"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Delete User" x:Name="DeleteUserTabItem" Width="110">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0">User Object ID:</Label>
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="0,0,0,10" x:Name="DeleteUserIdTextBox"/>
+
+                    <Button Grid.Row="1" Grid.ColumnSpan="2" Click="DeleteUser" Height="30" Width="150" Content="Delete User"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

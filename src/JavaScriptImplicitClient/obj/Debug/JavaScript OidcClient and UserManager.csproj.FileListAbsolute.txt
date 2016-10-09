@@ -1,0 +1,12 @@
+D:\LocalProjects\Azure B2C\OIDCClient\JavaScriptImplicitClient\bin\JavaScriptImplicitClient.dll.config
+D:\LocalProjects\Azure B2C\OIDCClient\JavaScriptImplicitClient\bin\JavaScriptImplicitClient.dll
+D:\LocalProjects\Azure B2C\OIDCClient\JavaScriptImplicitClient\bin\JavaScriptImplicitClient.pdb
+D:\LocalProjects\Azure B2C\OIDCClient\JavaScriptImplicitClient\obj\Debug\JavaScript OidcClient and UserManager.csprojResolveAssemblyReference.cache
+D:\LocalProjects\Azure B2C\OIDCClient\JavaScriptImplicitClient\obj\Debug\JavaScriptImplicitClient.dll
+D:\LocalProjects\Azure B2C\OIDCClient\JavaScriptImplicitClient\obj\Debug\JavaScriptImplicitClient.pdb
+D:\LocalProjects\Azure B2C\B2C-NativeClient\JavaScriptImplicitClient\bin\JavaScriptImplicitClient.dll.config
+D:\LocalProjects\Azure B2C\B2C-NativeClient\JavaScriptImplicitClient\bin\JavaScriptImplicitClient.dll
+D:\LocalProjects\Azure B2C\B2C-NativeClient\JavaScriptImplicitClient\bin\JavaScriptImplicitClient.pdb
+D:\LocalProjects\Azure B2C\B2C-NativeClient\JavaScriptImplicitClient\obj\Debug\JavaScriptImplicitClient.dll
+D:\LocalProjects\Azure B2C\B2C-NativeClient\JavaScriptImplicitClient\obj\Debug\JavaScriptImplicitClient.pdb
+D:\LocalProjects\Azure B2C\B2C-NativeClient\JavaScriptImplicitClient\obj\Debug\JavaScript OidcClient and UserManager.csprojResolveAssemblyReference.cache
